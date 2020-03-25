@@ -1,0 +1,22 @@
+{
+  "name": "first-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladimir-drachuk/node-first-task.git"
+  },
+  "author": "Vladimir Drachuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vladimir-drachuk/node-first-task/issues"
+  },
+  "homepage": "https://github.com/vladimir-drachuk/node-first-task#readme",
+  "devDependencies": {
+    "commander": "^5.0.0"
+  }
+}
