@@ -1,30 +1,38 @@
 'use strict';
 
 const fs = require('fs');
-const { pipeline } = require('stream');
+const { pipeline, Readable } = require('stream');
 const CaesarCipher = require('./caesar')
 
-function encode(keys) {
-    let input = keys.input;
-
-    if (input === undefined) {
-        process.stdout.write('Enter file path: ');
-        process.stdin.on('data', (data) => {
-            input = data;
-            process.exit();
-        }).then((res) => console.log(res));
-    }
-}
-
-
 function encryption(keys) {
-    const transformStream = new CaesarCipher(keys.shift)
-    pipeline(
-        fs.createReadStream(keys.input, 'utf8'),
-        transformStream,
-        fs.createWriteStream(keys.output),
-        (err) => { if (err) console.error('Pipline failed', err) }
-    )
+    const transformStream = new CaesarCipher(keys.shift);
+    if (keys.input !== undefined) {
+        pipeline(
+            fs.createReadStream(keys.input, 'utf8'),
+            transformStream,
+            (keys.output)
+                ? fs.createWriteStream(keys.output)
+                : process.stdout,
+            (err) => { if (err) console.error('Pipline failed', err); },
+        )
+    }
+    
+    
+    
+    /*else {
+        process.stdin.on('data', (data) => {
+            const readFormStd = Readable.from(data.toString());
+            pipeline(
+                readFormStd,
+                transformStream,
+                (keys.output)
+                    ? fs.createWriteStream(keys.output)
+                    : process.stdout,
+                (err) => { if (err) console.error('Pipline failed', err); },
+            )
+
+        })
+    }*/
 }
 
-module.exports = { encode, encryption }
+module.exports = { encryption }

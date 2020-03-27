@@ -1,7 +1,7 @@
 'use strict';
 
 const { program } = require('commander');
-const { encode, encryption } = require('./encode')
+const { encryption } = require('./encode')
 
 program
     .requiredOption('-s, --shift <number>', 'a shift')
@@ -17,12 +17,9 @@ program
             case 'decode':
                 keys.shift *= -1;
                 encryption(keys);
-            break;
-            case 'qqq':
-                encode(keys);
-            break;
+            break
             default:
-            throw Error('incorrect action');
+            process.stderr.write('Error: incorrect action(it can be only encode or decode)');
         }
     });
 
