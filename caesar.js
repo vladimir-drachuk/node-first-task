@@ -34,6 +34,7 @@ class CaesarCipher extends stream.Transform {
 
     _transform(chunk) {
         const transformChunk = chunk
+            .toString()
             .split('')
             .map((item) => this._shift(item))
             .join('')
