@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const stream = require('stream');
 
 class CaesarCipher extends stream.Transform {

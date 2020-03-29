@@ -19,7 +19,7 @@ program
                 encryption(keys);
             break
             default:
-            process.stderr.write('Error: incorrect action(it can be only encode or decode)');
+            console.error('Error: incorrect action(it can be only encode or decode)');
         }
     });
 

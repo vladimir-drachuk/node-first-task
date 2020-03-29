@@ -6,17 +6,23 @@ const CaesarCipher = require('./caesar')
 
 function encryption(keys) {
     const transformStream = new CaesarCipher(keys.shift);
-    const readFormStd = Readable.from(process.stdin);
-        pipeline(
-            (keys.input !== undefined)
-                ? fs.createReadStream(keys.input)
-                : readFormStd,
-            transformStream,
-            (keys.output !== undefined)
-                ? fs.createWriteStream(keys.output)
-                : process.stdout,
-            (err) => { if (err) console.error('Pipline failed', err); },
-        )
+    let readFormStd;
+    if (!keys.input) {
+        readFormStd = Readable.from(process.stdin);
+        process.stdin.on('data', () => {
+            process.stdin.destroy();
+        })
+    }
+    pipeline(
+        (keys.input)
+            ? fs.createReadStream(keys.input)
+            : readFormStd,
+        transformStream,
+        (keys.output)
+            ? fs.createWriteStream(keys.output, { flags: 'a' })
+            : process.stdout,
+        (err) => { if (err) console.error('Pipline failed', err); },
+    )
 }
 
-module.exports = { encryption }
+module.exports = { encryption };
