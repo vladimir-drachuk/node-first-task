@@ -17,7 +17,9 @@ Encode and decode a text by [Caesar cipher](https://en.wikipedia.org/wiki/Caesar
 
 Examples:
 
-`node caesar-cli --action encode --shift 3 --input 'example.txt' --output 'result.txt'`
+`
+node caesar-cli --action encode --shift 3 --input 'example.txt' --output 'result.txt'
+`
 
 `node caesar-cli -a decode -s 3 -i 'example.txt' -o 'result.txt'`
 
